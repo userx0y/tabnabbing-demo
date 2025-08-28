@@ -33,7 +33,7 @@ app.post('/login', async (req, res) => {
     await user.save();
     res.send({"status": "success", "message": "Something went wrong!!!"});
     } catch(err){
-        alert(err);
+        console.log(err);
         res.send({"status": "failed", "message": "Server error"});
     };
 });
