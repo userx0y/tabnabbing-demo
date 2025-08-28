@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instragram</title>
+    <link rel="icon" href="./assets/insta-logo.png">
+    <style>
+        body{
+            background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+        }
+        input:focus{
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" style="margin-top: 180px; height: 100vh">
+        <div style="width: 100%; display: flex; justify-content: center;" class="text-black mt-5">
+            <form id="loginForm" style="background-color: rgb(255, 255, 255);  padding:20px 20px; border-radius: 20px; width: 400px; height: 400px">
+                <div class="mb-3">
+                    <h1 class="text-center"><img src="./assets/instagram.png" style="height: 100px;" alt=""></h1>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="username">
+                </div>
+                <div class="mb-3">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="password">
+                </div>
+                <br><br>
+                <span id="msgBox"></span>
+                <br>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Log in</button>
+            </form>
+            <script>
+                const formData = document.getElementById("loginForm");
+                formData.addEventListener("submit", (e)=>{
+                    e.preventDefault();
+                    let username = document.getElementById("username").value;
+                    let password = document.getElementById("password").value;
+                    fetch("http://localhost:3000/login",{
+                        method : "POST",
+                        headers : { "Content-Type" : "application/json" },
+                        body : JSON.stringify({username, password})
+                    }).then((res) => res.json()).then((data) => {
+                        if(data.status == "success"){
+                            const msg = document.getElementById("msgBox");
+                            msg.innerText = data.message;
+                            msg.style.color = "red";
+                            msg.style.fontWeight = "bold";
+                            setTimeout(()=>{
+                                msg.innerText = "";
+
+                            }, 2000)
+                        } else {
+                            const msg = document.getElementById("msgBox");
+                            msg.innerText = data.message;
+                        };
+                    }).catch((err) => {
+                        alert(err)
+                    })
+                });
+            </script>
+        </div>
+    </div>
+</body>
+</html>
